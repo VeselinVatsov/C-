@@ -1,0 +1,68 @@
+using System;
+
+public class Graph
+{
+    public string name { get; set; }
+    public string service { get; set; }
+    public DateTime date { get; set; }
+    public float hour { get; set; }
+    public Graph(string name, string service, DateTime date, float hour)
+    {
+        this.name = name;
+        this.service = service;
+        this.date = date;
+        this.hour = hour;
+    }
+    public void Display()
+    {
+        Console.WriteLine($"{name} has {service} on {date} in {hour}");
+    }
+    public bool Kl(string kl)
+    {
+        if (kl.ToLower() == name.ToLower()) return true;
+        else return false;
+    }
+    public bool Usl(string usl)
+    {
+        if (usl.ToLower() == service.ToLower()) return true;
+        else return false;
+    }
+    class Myclass
+{
+    
+    }
+    static void Main(string[] args)
+    {
+        int n = 0;
+        do
+        {
+            Console.Write("Number of customers: ");
+            n = Convert.ToInt32(Console.ReadLine());
+        }
+        while (n <= 0);
+        Graph[] graph = new Graph[n];
+        for (int i = 0; i < graph.Length; i++)
+        {
+            Console.Write($"Enter name {i + 1}: ");
+            string name1 = Console.ReadLine();
+            Console.Write($"Enter type {i + 1}: ");
+            string types = Console.ReadLine();
+            DateTime date;
+            Console.Write($"Enter date {i + 1}: ");
+            DateTime.TryParse(Console.ReadLine(), out date);
+            float hour;
+            Console.Write($"Enter hour {i + 1}: ");
+            float.TryParse(Console.ReadLine(), out hour);
+            graph[i] = new Graph(name1, types, date, hour);
+        }
+        foreach (var el in graph) el.Display();
+        Console.Write("Customer's name: ");
+        string name = Console.ReadLine();
+        foreach (var el in graph) if (el.Kl(name)) el.Display();
+        Console.Write("Type of service: ");
+        string type = Console.ReadLine();
+        foreach (var el in graph) if (el.Usl(type)) el.Display();
+
+
+    }
+}
