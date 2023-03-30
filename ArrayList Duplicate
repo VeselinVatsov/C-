@@ -1,0 +1,38 @@
+using System;
+using System.Collections;
+
+class Program
+{
+    static void Main()
+    {
+        ArrayList m = new ArrayList();
+        int n = Convert.ToInt32(Console.ReadLine());
+        while (n > 0)
+        {
+            m.Add(n % 10);
+            n /= 10;
+        }
+        int counter = 0;
+        for (int i = 0; i < m.Count; i++)
+        {
+            ArrayList p = (ArrayList)m.Clone();
+            p.RemoveAt(i);
+
+            if (p.Contains(m[i]))
+            {
+                counter++;
+                break;
+            }
+            i++;
+            
+        }
+        if (counter > 0)
+        {
+            Console.Write("The number has duplicate digits.");
+        }
+        else
+        {
+            Console.Write("The number has not duplicate digits.");
+        }
+    }
+}
