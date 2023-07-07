@@ -1,0 +1,78 @@
+#include <iostream>
+#include <sstream>
+#include <list>
+
+using namespace std;
+
+void readTrack(list<int>& track) //function reads the railcar numbers
+{
+    string buf;
+    getline(cin, buf);
+
+    istringstream sbuf(buf);
+    int car;
+
+    while (sbuf >> car)
+    {
+        track.push_front(car);
+    }
+}
+
+void printTrack(const list<int>& track) //function prints the railcar numbers in a track.
+{
+    for (int car : track)
+    {
+        cout << car << " ";
+    }
+}
+
+int main()
+{
+    list<int> trackA;
+    list<int> trackB;
+    list<int> mergedTrack;
+
+    string mergedInstructions;
+ 
+    readTrack(trackA);
+    readTrack(trackB);
+
+    list<int>::iterator itA = trackA.begin(); 
+    list<int>::iterator itB = trackB.begin(); //two iterators (itA and itB) are used to traverse the linked lists trackA and trackB, respectively.
+
+    while (itA != trackA.end() || itB != trackB.end())  //continues until both itA and itB have reached the end of their respective tracks
+    {
+        if (itA != trackA.end() && itB != trackB.end()) //if both iterators are valid
+        {
+            if (*itA < *itB)
+            {
+                mergedInstructions += 'A';
+                mergedTrack.push_front(*itA);
+                itA++;
+            }
+            else
+            {
+                mergedInstructions += 'B';
+                mergedTrack.push_front(*itB);
+                itB++;
+            }
+        }
+        else 
+        {
+            if (itA != trackA.end()) //If one of the iterators has reached the end of its track
+            {
+                mergedInstructions += 'A';
+                mergedTrack.push_front(*itA);
+                itA++;
+            }
+            else
+            {
+                mergedInstructions += 'B';
+                mergedTrack.push_front(*itB);
+                itB++;
+            }
+        }     
+    }
+    cout << mergedInstructions << endl;
+    printTrack(mergedTrack);
+}
